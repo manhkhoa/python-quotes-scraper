@@ -1,207 +1,249 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- HTML Document Setup -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Quotes Scraper - Flask Version</title>
+    <!-- This tells the browser what character encoding to use (UTF-8 supports all languages) -->
     
-    <!-- Bootstrap CSS for responsive design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- This makes the page responsive for mobile devices by setting the viewport -->
+    
+    <title>Python Quotes Scraper - Flask Version</title>
+    <!-- This sets the title that appears in the browser tab -->
+    
+    <!-- External CSS Libraries -->
+    <!-- Bootstrap CSS for responsive design and pre-built components -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- Font Awesome for icons -->
+    <!-- Font Awesome for icons (like the spider icon, download icon, etc.) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Custom CSS Styles -->
     <style>
+        /* Header Section Styling */
         .header-section {
+            /* Create a beautiful gradient background from blue to purple */
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 2rem 0;
-            margin-bottom: 2rem;
+            color: white;  /* White text on the gradient background */
+            padding: 2rem 0;  /* Add space above and below the header */
+            margin-bottom: 2rem;  /* Space below the header */
         }
         
+        /* Main title styling */
         .main-title {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
+            font-size: 2.5rem;  /* Large font size for the main heading */
+            font-weight: bold;  /* Make the text bold */
+            margin-bottom: 0.5rem;  /* Space below the title */
         }
         
+        /* Subtitle styling */
         .subtitle {
-            font-size: 1.1rem;
-            opacity: 0.9;
+            font-size: 1.1rem;  /* Slightly larger than normal text */
+            opacity: 0.9;  /* Make it slightly transparent */
         }
         
+        /* Header info section (right side) */
         .header-info {
-            text-align: right;
-            font-size: 0.9rem;
-            opacity: 0.8;
+            text-align: right;  /* Align text to the right */
+            font-size: 0.9rem;  /* Smaller font size */
+            opacity: 0.8;  /* Make it more transparent */
         }
         
+        /* Remove bottom margin from header info paragraphs */
         .header-info p {
             margin-bottom: 0.2rem;
         }
         
+        /* Style the icons in the header info */
         .header-info i {
-            margin-right: 0.5rem;
-            color: #ffd700;
+            margin-right: 0.5rem;  /* Space to the right of the icon */
+            color: #ffd700;  /* Gold color for the icons */
         }
         
+        /* Control Section Styling */
         .control-section {
-            background-color: #f8f9fa;
-            padding: 1.5rem 0;
-            margin-bottom: 2rem;
+            background-color: #f8f9fa;  /* Light gray background */
+            padding: 1.5rem 0;  /* Space above and below */
+            margin-bottom: 2rem;  /* Space below the section */
         }
         
+        /* Search box styling */
         .search-box input {
-            border-radius: 25px;
-            border: 2px solid #e9ecef;
-            padding: 0.75rem 1.5rem;
+            border-radius: 25px;  /* Rounded corners */
+            border: 2px solid #e9ecef;  /* Light border */
+            padding: 0.75rem 1.5rem;  /* Internal spacing */
         }
         
+        /* Filter controls styling */
         .filter-controls select {
-            border-radius: 25px;
-            border: 2px solid #e9ecef;
-            padding: 0.75rem 1.5rem;
+            border-radius: 25px;  /* Rounded corners */
+            border: 2px solid #e9ecef;  /* Light border */
+            padding: 0.75rem 1.5rem;  /* Internal spacing */
         }
         
+        /* Action controls (buttons) styling */
         .action-controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.5rem;
+            display: flex;  /* Use flexbox for layout */
+            justify-content: center;  /* Center the buttons horizontally */
+            align-items: center;  /* Center the buttons vertically */
+            gap: 0.5rem;  /* Space between buttons */
         }
         
+        /* Button styling */
         .action-controls .btn {
-            border-radius: 25px;
-            padding: 0.75rem 1.5rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
+            border-radius: 25px;  /* Rounded corners */
+            padding: 0.75rem 1.5rem;  /* Internal spacing */
+            font-weight: bold;  /* Bold text */
+            transition: all 0.3s ease;  /* Smooth animation for all changes */
         }
         
+        /* Button hover effects */
         .action-controls .btn:hover {
-            transform: translateY(-2px);
+            transform: translateY(-2px);  /* Move button up slightly on hover */
         }
         
+        /* Special hover effect for scrape button */
         .btn-scrape:hover {
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);  /* Blue shadow on hover */
         }
         
+        /* Special hover effect for success button */
         .btn-success:hover {
-            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);  /* Green shadow on hover */
         }
         
+        /* Statistics Section Styling */
         .stats-section {
-            margin-bottom: 2rem;
+            margin-bottom: 2rem;  /* Space below the stats */
         }
         
+        /* Individual stat card styling */
         .stat-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            text-align: center;
+            background: white;  /* White background */
+            padding: 1.5rem;  /* Internal spacing */
+            border-radius: 10px;  /* Rounded corners */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);  /* Subtle shadow */
+            text-align: center;  /* Center the text */
         }
         
+        /* Stat card number styling */
         .stat-card h3 {
-            color: #667eea;
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
+            color: #667eea;  /* Blue color for the numbers */
+            font-size: 2rem;  /* Large font size */
+            font-weight: bold;  /* Bold text */
+            margin-bottom: 0.5rem;  /* Space below the number */
         }
         
+        /* Quote card styling */
         .quote-card {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-left: 5px solid #667eea;
-            transition: transform 0.2s ease;
+            background: white;  /* White background */
+            border-radius: 15px;  /* Rounded corners */
+            padding: 2rem;  /* Internal spacing */
+            margin-bottom: 1.5rem;  /* Space below each card */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);  /* Shadow for depth */
+            border-left: 5px solid #667eea;  /* Blue left border */
+            transition: transform 0.2s ease;  /* Smooth animation */
         }
         
+        /* Quote card hover effect */
         .quote-card:hover {
-            transform: translateY(-2px);
+            transform: translateY(-2px);  /* Move card up slightly on hover */
         }
         
+        /* Quote text styling */
         .quote-text {
-            font-size: 1.2rem;
-            font-style: italic;
-            color: #495057;
-            margin-bottom: 1.5rem;
-            text-align: center;
+            font-size: 1.2rem;  /* Larger font for the quote */
+            font-style: italic;  /* Italic text style */
+            color: #495057;  /* Dark gray color */
+            margin-bottom: 1.5rem;  /* Space below the quote */
+            text-align: center;  /* Center the quote text */
         }
         
+        /* Quote text icons styling */
         .quote-text i {
-            color: #667eea;
-            margin: 0 1rem;
+            color: #667eea;  /* Blue color for the quote marks */
+            margin: 0 1rem;  /* Space around the icons */
         }
         
+        /* Quote author styling */
         .quote-author {
-            text-align: right;
-            margin-bottom: 1rem;
+            text-align: right;  /* Align author to the right */
+            margin-bottom: 1rem;  /* Space below the author */
         }
         
+        /* Author name styling */
         .author-name {
-            font-weight: bold;
-            color: #667eea;
-            font-size: 1.1rem;
+            font-weight: bold;  /* Bold text */
+            color: #667eea;  /* Blue color */
+            font-size: 1.1rem;  /* Slightly larger font */
         }
         
+        /* Quote tags styling */
         .quote-tags {
-            margin-bottom: 1rem;
+            margin-bottom: 1rem;  /* Space below the tags */
         }
         
+        /* Individual tag styling */
         .tag {
-            display: inline-block;
-            background: #e9ecef;
-            color: #495057;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            margin: 0.2rem;
+            display: inline-block;  /* Make tags display inline */
+            background: #e9ecef;  /* Light gray background */
+            color: #495057;  /* Dark gray text */
+            padding: 0.3rem 0.8rem;  /* Internal spacing */
+            border-radius: 15px;  /* Rounded corners */
+            font-size: 0.8rem;  /* Smaller font size */
+            margin: 0.2rem;  /* Space around each tag */
         }
         
+        /* Quote metadata styling */
         .quote-meta {
-            color: #6c757d;
-            font-size: 0.9rem;
+            color: #6c757d;  /* Light gray color */
+            font-size: 0.9rem;  /* Smaller font size */
         }
         
+        /* Loading section styling */
         .loading-section {
-            padding: 3rem 0;
+            padding: 3rem 0;  /* Space above and below */
         }
         
+        /* Scrape button special styling */
         .btn-scrape {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            border-radius: 25px;
-            padding: 0.75rem 2rem;
-            font-weight: bold;
-            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);  /* Gradient background */
+            border: none;  /* No border */
+            border-radius: 25px;  /* Rounded corners */
+            padding: 0.75rem 2rem;  /* Internal spacing */
+            font-weight: bold;  /* Bold text */
+            color: white;  /* White text */
         }
         
+        /* Scrape button hover effect */
         .btn-scrape:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transform: translateY(-1px);  /* Move button up slightly */
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);  /* Blue shadow */
         }
         
+        /* No quotes message styling */
         .no-quotes {
-            text-align: center;
-            padding: 3rem;
-            color: #6c757d;
+            text-align: center;  /* Center the text */
+            padding: 3rem;  /* Internal spacing */
+            color: #6c757d;  /* Light gray color */
         }
         
+        /* No quotes icon styling */
         .no-quotes i {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: #dee2e6;
+            font-size: 3rem;  /* Large icon size */
+            margin-bottom: 1rem;  /* Space below the icon */
+            color: #dee2e6;  /* Very light gray color */
         }
     </style>
 </head>
 <body>
+    <!-- Main Container -->
     <div class="container-fluid">
         <!-- Header Section -->
         <header class="header-section">
             <div class="container">
                 <div class="row align-items-center">
+                    <!-- Left side: Title and subtitle -->
                     <div class="col-md-8">
                         <h1 class="main-title">
                             <i class="fas fa-quote-left"></i> 
@@ -209,6 +251,7 @@
                         </h1>
                         <p class="subtitle">Powerful web scraping with Python Flask backend</p>
                     </div>
+                    <!-- Right side: Feature highlights -->
                     <div class="col-md-4 text-end">
                         <div class="header-info">
                             <p class="mb-0"><i class="fas fa-spider"></i> Python-powered scraping</p>
@@ -223,11 +266,13 @@
         <div class="control-section">
             <div class="container">
                 <div class="row">
+                    <!-- Search Box -->
                     <div class="col-md-4">
                         <div class="search-box">
                             <input type="text" id="searchInput" class="form-control" placeholder="Search quotes, authors, or tags...">
                         </div>
                     </div>
+                    <!-- Tag Filter Dropdown -->
                     <div class="col-md-4">
                         <div class="filter-controls">
                             <select id="tagFilter" class="form-select">
@@ -235,6 +280,7 @@
                             </select>
                         </div>
                     </div>
+                    <!-- Action Buttons -->
                     <div class="col-md-4">
                         <div class="action-controls text-center">
                             <button id="scrapeBtn" class="btn btn-scrape btn-lg me-2">
@@ -251,34 +297,39 @@
 
         <!-- Loading Indicator -->
         <div id="loadingIndicator" class="loading-section text-center d-none">
+            <!-- Bootstrap spinner for loading animation -->
             <div class="spinner-border text-primary" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
             <p class="mt-2">Scraping quotes from the website...</p>
         </div>
 
-        <!-- Stats Section -->
+        <!-- Statistics Section -->
         <div class="stats-section">
             <div class="container">
                 <div class="row text-center">
+                    <!-- Total Quotes Stat -->
                     <div class="col-md-3">
                         <div class="stat-card">
                             <h3 id="totalQuotes">0</h3>
                             <p>Total Quotes</p>
                         </div>
                     </div>
+                    <!-- Unique Authors Stat -->
                     <div class="col-md-3">
                         <div class="stat-card">
                             <h3 id="totalAuthors">0</h3>
                             <p>Unique Authors</p>
                         </div>
                     </div>
+                    <!-- Unique Tags Stat -->
                     <div class="col-md-3">
                         <div class="stat-card">
                             <h3 id="totalTags">0</h3>
                             <p>Unique Tags</p>
                         </div>
                     </div>
+                    <!-- Filtered Quotes Stat -->
                     <div class="col-md-3">
                         <div class="stat-card">
                             <h3 id="filteredQuotes">0</h3>
@@ -289,10 +340,11 @@
             </div>
         </div>
 
-        <!-- Quotes Blog List -->
+        <!-- Quotes Display Section -->
         <div class="quotes-section">
             <div class="container">
                 <div id="quotesContainer" class="row">
+                    <!-- Initial message when no quotes are loaded -->
                     <div class="col-12">
                         <div class="no-quotes">
                             <i class="fas fa-quote-left"></i>
@@ -305,110 +357,184 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
+    <!-- External JavaScript Libraries -->
+    <!-- Bootstrap JavaScript for interactive components -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Custom JavaScript -->
+    <!-- Custom JavaScript Code -->
     <script>
+        /**
+         * Main JavaScript class that handles all the functionality of the quotes scraper
+         * 
+         * This class demonstrates:
+         * - Object-oriented programming in JavaScript
+         * - Making HTTP requests to the Python backend
+         * - Dynamic DOM manipulation
+         * - Event handling
+         * - Error handling
+         */
         class FlaskQuotesScraper {
+            /**
+             * Constructor method - runs when creating a new instance
+             * 
+             * Initializes:
+             * - Empty arrays for storing quotes
+             * - Event listeners for user interactions
+             */
             constructor() {
+                // Store all quotes scraped from the website
                 this.quotes = [];
+                
+                // Store quotes that match the current search/filter criteria
                 this.filteredQuotes = [];
+                
+                // Set up all the event listeners for user interactions
                 this.setupEventListeners();
             }
 
+            /**
+             * Set up all event listeners for user interactions
+             * 
+             * This method connects HTML elements to JavaScript functions
+             */
             setupEventListeners() {
-                // Scrape button
+                // When the scrape button is clicked, start the scraping process
                 document.getElementById('scrapeBtn').addEventListener('click', () => {
                     this.startScraping();
                 });
 
-                // Search functionality
+                // When the user types in the search box, filter the quotes
                 document.getElementById('searchInput').addEventListener('input', () => {
                     this.filterQuotes();
                 });
 
-                // Tag filter
+                // When the user selects a different tag filter, filter the quotes
                 document.getElementById('tagFilter').addEventListener('change', () => {
                     this.filterQuotes();
                 });
 
-                // Export button
+                // When the export button is clicked, download the CSV file
                 document.getElementById('exportBtn').addEventListener('click', () => {
                     this.exportToCSV();
                 });
             }
 
+            /**
+             * Start the scraping process
+             * 
+             * This method:
+             * 1. Shows loading indicator
+             * 2. Sends request to Python backend
+             * 3. Updates the page with scraped data
+             * 4. Handles any errors that occur
+             */
             async startScraping() {
                 try {
+                    // Show the loading spinner and disable the scrape button
                     this.showLoading(true);
                     document.getElementById('scrapeBtn').disabled = true;
                     document.getElementById('scrapeBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scraping...';
 
+                    // Make a POST request to the Python backend to start scraping
                     const response = await fetch('/api/scrape', {
-                        method: 'POST',
+                        method: 'POST',  // Use POST method for this request
                         headers: {
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/json'  // Tell server we're sending JSON data
                         },
-                        body: JSON.stringify({ max_pages: 3 })
+                        body: JSON.stringify({ max_pages: 3 })  // Send data as JSON string
                     });
 
+                    // Convert the response to JSON format
                     const data = await response.json();
 
+                    // Check if the scraping was successful
                     if (data.success) {
+                        // Store the scraped quotes
                         this.quotes = data.quotes;
+                        
+                        // Initially show all quotes (no filtering applied yet)
                         this.filteredQuotes = [...this.quotes];
+                        
+                        // Update the statistics display
                         this.updateStats();
+                        
+                        // Populate the tag filter dropdown with available tags
                         this.populateTagFilter();
+                        
+                        // Display the quotes on the page
                         this.renderQuotes();
                         
-                        // Show success message
+                        // Show a success message to the user
                         this.showAlert('success', `Successfully scraped ${data.quotes.length} quotes!`);
                     } else {
+                        // If there was an error, throw an exception
                         throw new Error(data.error);
                     }
 
                 } catch (error) {
+                    // Handle any errors that occurred during scraping
                     console.error('Scraping failed:', error);
                     this.showAlert('danger', `Scraping failed: ${error.message}`);
                 } finally {
+                    // This code runs regardless of success or failure
+                    // Hide the loading spinner and re-enable the scrape button
                     this.showLoading(false);
                     document.getElementById('scrapeBtn').disabled = false;
                     document.getElementById('scrapeBtn').innerHTML = '<i class="fas fa-spider"></i> Start Scraping';
                 }
             }
 
+            /**
+             * Filter quotes based on search text and selected tag
+             * 
+             * This method sends a request to the Python backend to get filtered quotes
+             */
             async filterQuotes() {
+                // Get the current search text and selected tag
                 const searchText = document.getElementById('searchInput').value;
                 const selectedTag = document.getElementById('tagFilter').value;
 
                 try {
+                    // Build the query parameters for the API request
                     const params = new URLSearchParams();
                     if (searchText) params.append('search', searchText);
                     if (selectedTag) params.append('tag', selectedTag);
 
+                    // Make a GET request to get filtered quotes
                     const response = await fetch(`/api/quotes?${params}`);
                     const data = await response.json();
 
+                    // If successful, update the filtered quotes and refresh the display
                     if (data.success) {
                         this.filteredQuotes = data.quotes;
                         this.updateStats();
                         this.renderQuotes();
                     }
                 } catch (error) {
+                    // Handle any errors that occurred during filtering
                     console.error('Filtering failed:', error);
                 }
             }
 
+            /**
+             * Populate the tag filter dropdown with available tags
+             * 
+             * This method gets all unique tags from the scraped quotes
+             */
             async populateTagFilter() {
                 try {
+                    // Make a GET request to get all available tags
                     const response = await fetch('/api/tags');
                     const data = await response.json();
 
+                    // If successful, populate the dropdown
                     if (data.success) {
                         const tagFilter = document.getElementById('tagFilter');
+                        
+                        // Reset the dropdown to just show "All Tags"
                         tagFilter.innerHTML = '<option value="">All Tags</option>';
                         
+                        // Add each tag as an option in the dropdown
                         data.tags.forEach(tag => {
                             const option = document.createElement('option');
                             option.value = tag;
@@ -417,14 +543,24 @@
                         });
                     }
                 } catch (error) {
+                    // Handle any errors that occurred while loading tags
                     console.error('Failed to load tags:', error);
                 }
             }
 
+            /**
+             * Display the quotes on the page
+             * 
+             * This method creates HTML elements for each quote and adds them to the page
+             */
             renderQuotes() {
+                // Get the container where quotes will be displayed
                 const container = document.getElementById('quotesContainer');
+                
+                // Clear any existing quotes
                 container.innerHTML = '';
 
+                // If no quotes match the current filter, show a message
                 if (this.filteredQuotes.length === 0) {
                     container.innerHTML = `
                         <div class="col-12">
@@ -438,15 +574,27 @@
                     return;
                 }
 
+                // Create and display each quote
                 this.filteredQuotes.forEach(quote => {
                     const quoteElement = this.createQuoteElement(quote);
                     container.appendChild(quoteElement);
                 });
             }
 
+            /**
+             * Create an HTML element for a single quote
+             * 
+             * @param {Object} quote - The quote data object
+             * @returns {HTMLElement} - The created quote element
+             */
             createQuoteElement(quote) {
+                // Create a new div element for the quote
                 const quoteDiv = document.createElement('div');
+                
+                // Add Bootstrap classes for responsive layout
                 quoteDiv.className = 'col-md-6 col-lg-4';
+                
+                // Set the HTML content for the quote card
                 quoteDiv.innerHTML = `
                     <div class="quote-card">
                         <div class="quote-text">
@@ -468,71 +616,128 @@
                     </div>
                 `;
                 
+                // Return the created quote element
                 return quoteDiv;
             }
 
+            /**
+             * Escape HTML special characters to prevent XSS attacks
+             * 
+             * @param {string} text - The text to escape
+             * @returns {string} - The escaped text
+             */
             escapeHTML(text) {
+                // Create a temporary div element
                 const div = document.createElement('div');
+                
+                // Set the text content (this automatically escapes HTML)
                 div.textContent = text;
+                
+                // Return the innerHTML (which is now safely escaped)
                 return div.innerHTML;
             }
 
+            /**
+             * Update the statistics display
+             * 
+             * This method updates all the stat cards with current numbers
+             */
             updateStats() {
+                // Update total quotes count
                 document.getElementById('totalQuotes').textContent = this.quotes.length;
+                
+                // Update filtered quotes count
                 document.getElementById('filteredQuotes').textContent = this.filteredQuotes.length;
 
-                // Count unique authors
+                // Count unique authors from filtered quotes
                 const authors = new Set(this.filteredQuotes.map(q => q.author));
                 document.getElementById('totalAuthors').textContent = authors.size;
 
-                // Count unique tags
+                // Count unique tags from filtered quotes
                 const allTags = this.filteredQuotes.flatMap(q => q.tags);
                 const uniqueTags = new Set(allTags);
                 document.getElementById('totalTags').textContent = uniqueTags.size;
             }
 
+            /**
+             * Show or hide the loading indicator
+             * 
+             * @param {boolean} show - Whether to show (true) or hide (false) the loading indicator
+             */
             showLoading(show) {
                 const loadingElement = document.getElementById('loadingIndicator');
+                
+                // Toggle the 'd-none' class to show/hide the loading indicator
+                // 'd-none' is a Bootstrap class that hides elements
                 loadingElement.classList.toggle('d-none', !show);
             }
 
+            /**
+             * Export quotes to CSV file
+             * 
+             * This method downloads a CSV file with the current filtered quotes
+             */
             async exportToCSV() {
                 try {
+                    // Get the current search text and selected tag
                     const searchText = document.getElementById('searchInput').value;
                     const selectedTag = document.getElementById('tagFilter').value;
 
+                    // Build the query parameters for the export request
                     const params = new URLSearchParams();
                     if (searchText) params.append('search', searchText);
                     if (selectedTag) params.append('tag', selectedTag);
 
-                    // Create download link
+                    // Create a temporary download link
                     const link = document.createElement('a');
+                    
+                    // Set the link to point to the export API endpoint
                     link.href = `/api/export?${params}`;
+                    
+                    // Set the download filename
                     link.download = 'quotes_export.csv';
+                    
+                    // Add the link to the page, click it, then remove it
+                    // This triggers the file download
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
 
+                    // Show a success message
                     this.showAlert('success', 'CSV export started!');
                 } catch (error) {
+                    // Handle any errors that occurred during export
                     console.error('Export failed:', error);
                     this.showAlert('danger', 'Export failed!');
                 }
             }
 
+            /**
+             * Show a temporary alert message to the user
+             * 
+             * @param {string} type - The type of alert ('success', 'danger', 'warning', 'info')
+             * @param {string} message - The message to display
+             */
             showAlert(type, message) {
-                // Create alert element
+                // Create a new alert element
                 const alertDiv = document.createElement('div');
+                
+                // Add Bootstrap classes for styling and positioning
                 alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+                
+                // Position the alert in the top-right corner
                 alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+                
+                // Set the alert content with a close button
                 alertDiv.innerHTML = `
                     ${message}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 `;
 
+                // Add the alert to the page
                 document.body.appendChild(alertDiv);
 
-                // Auto-remove after 5 seconds
+                // Automatically remove the alert after 5 seconds
                 setTimeout(() => {
                     if (alertDiv.parentNode) {
                         alertDiv.remove();
@@ -541,9 +746,13 @@
             }
         }
 
-        // Initialize the application when the DOM is loaded
+        // Initialize the application when the DOM is fully loaded
+        // This ensures all HTML elements exist before we try to access them
         document.addEventListener('DOMContentLoaded', () => {
+            // Create a new instance of our scraper class
             const scraper = new FlaskQuotesScraper();
+            
+            // Log a message to the console for debugging
             console.log('Flask Quotes Scraper initialized!');
         });
     </script>
